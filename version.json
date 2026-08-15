@@ -1,9 +1,9 @@
 {
   "product": "Goje",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "channel": "stable",
-  "min_supported_version": "5.0.0",
   "update_mode": "github-source",
-  "preserve": ["data", "config", "plugins", "ai_inbox", "backups", "memory"],
-  "notes": "Goje V5 voice and natural conversation build"
+  "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
+  "branch": "main",
+  "notes": "GitHub automatic update channel enabled"
 }
