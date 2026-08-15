@@ -54,11 +54,12 @@ class PermanentUpdater:
         self.token_path.write_text(token.strip(), encoding="utf-8")
 
     def has_token(self):
-        return bool(self.token())
+        # Public repository: a token is optional for update checks/downloads.
+        return True
 
     def _request_json(self, url):
         headers = {
-            "User-Agent": "Goje-Personal-AI-Updater/8.0",
+            "User-Agent": "Goje-Personal-AI-Updater/11.1",
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28"
         }
@@ -69,7 +70,9 @@ class PermanentUpdater:
             return json.loads(r.read().decode("utf-8"))
 
     def remote_version(self):
-        data = self._request_json(f"{API}/repos/{REPO}/contents/releases/latest/version.json?ref={BRANCH}")
+        # IMPORTANT: update metadata is stored at the repository root.
+        # Do not depend on releases/latest/payload_manifest.json for public updates.
+        data = self._request_json(f"{API}/repos/{REPO}/contents/version.json?ref={BRANCH}")
         raw = base64.b64decode(data["content"]).decode("utf-8")
         return json.loads(raw)
 
@@ -96,9 +99,9 @@ class PermanentUpdater:
             chunks = [self._download_file_contents(f"releases/latest/payload/{name}").decode("ascii") for name in manifest.get("parts", [])]
             archive.write_bytes(base64.b64decode("".join(chunks)))
         except Exception:
-            # Reliable fallback: download the authenticated main-branch snapshot.
+            # Public-repository fallback: download the main-branch snapshot directly.
             headers = {
-                "User-Agent": "Goje-Personal-AI-Updater/8.0",
+                "User-Agent": "Goje-Personal-AI-Updater/11.1",
                 "Accept": "application/vnd.github+json",
                 "X-GitHub-Api-Version": "2022-11-28"
             }
