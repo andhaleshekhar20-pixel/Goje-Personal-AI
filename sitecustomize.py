@@ -1,17 +1,15 @@
 from __future__ import annotations
+"""Goje V10 runtime repair layer.
 
-"""Goje V9 hybrid-brain bootstrap.
-
-Loaded automatically by Python before desktop_app.py. It keeps the V8 core/tools
-intact while upgrading GojeBrain.answer to route between the verified local
-qwen3:4b-instruct model and the configured OpenAI cloud model.
+Loaded automatically by Python before desktop_app.py. V10 keeps the existing
+application intact while fixing the local brain and a few common desktop tasks.
 """
 
-import os
-from pathlib import Path
+import re
 
 
 def _mode_path():
+    from pathlib import Path
     return Path(__file__).resolve().parent / "config" / "reasoning_mode.txt"
 
 
@@ -40,7 +38,7 @@ def _score(text):
             score += 2
     if any(x in t for x in ("gold", "xauusd", "btc", "silver", "trading", "trade")):
         score += 1
-    if any(x in t for x in ("hi", "hello", "find file", "open file", "what time", "remember", "gold price", "show positions", "account status")):
+    if any(x in t for x in ("hi", "hello", "what time", "remember", "gold price", "show positions", "account status")):
         score = min(score, 1)
     return score
 
@@ -73,23 +71,11 @@ Recent conversation:
 """
 
 
-def _cloud(system_text, user_text):
-    key = os.getenv("OPENAI_API_KEY", "").strip()
-    model = os.getenv("OPENAI_MODEL", "").strip()
-    if not key or not model:
-        return None
-    try:
-        from openai import OpenAI
-        client = OpenAI(api_key=key)
-        response = client.responses.create(model=model, instructions=system_text, input=user_text)
-        return response.output_text.strip()
-    except Exception:
-        return None
-
-
 def _local(brain, system_text, user_text):
     try:
+        # The user already installed this verified non-thinking local model.
         brain.local.model = "qwen3:4b-instruct"
+        brain.local.thinking = False
         if not brain.local.health().get("ok"):
             return None
         if not brain.local.has_model("qwen3:4b-instruct"):
@@ -104,12 +90,26 @@ def _local(brain, system_text, user_text):
         return None
 
 
+def _cloud(system_text, user_text):
+    key = __import__('os').getenv("OPENAI_API_KEY", "").strip()
+    model = __import__('os').getenv("OPENAI_MODEL", "").strip()
+    if not key or not model:
+        return None
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=key)
+        response = client.responses.create(model=model, instructions=system_text, input=user_text)
+        return response.output_text.strip()
+    except Exception:
+        return None
+
+
 def _patch_class():
     try:
         from core.brain import GojeBrain
     except Exception:
         return
-    if getattr(GojeBrain, "_goje_v9_patched", False):
+    if getattr(GojeBrain, "_goje_v10_patched", False):
         return
 
     original = GojeBrain.answer
@@ -122,7 +122,36 @@ def _patch_class():
             _save_mode(mode)
             return self._finish(session_id, f"Brain mode set to {mode.upper()}.")
 
-        # Preserve Goje's existing direct tool intents for things like MT5/file operations.
+        # Common desktop file tasks should work without an LLM.
+        triggers = (
+            "find movie", "find movies", "find video", "find videos",
+            "find picture", "find pictures", "find photo", "find photos",
+            "find file", "find files", "find pdf", "find document",
+            "find documents", "locate file", "locate movie", "locate video"
+        )
+        if any(x in low for x in triggers):
+            if any(x in low for x in ("movie", "movies", "video", "videos")):
+                query = "mp4"
+            elif any(x in low for x in ("picture", "pictures", "photo", "photos")):
+                query = "jpg"
+            elif "pdf" in low:
+                query = "pdf"
+            else:
+                query = re.sub(r"^(find|find the|find my|locate|locate the)\s+", "", low).strip()
+            try:
+                rows = self.filesystem.search(query)
+                if rows:
+                    return self._finish(
+                        session_id,
+                        "I found these:\n\n" + "\n".join(
+                            f"• {r.get('name')} ({'folder' if r.get('is_dir') else 'file'})\n  {r.get('path')}"
+                            for r in rows[:15]
+                        )
+                    )
+                return self._finish(session_id, f"I couldn't find anything matching '{query}'.")
+            except Exception as exc:
+                return self._finish(session_id, f"I couldn't search your files: {exc}")
+
         try:
             direct = self.local_intent(session_id, user_text)
             if direct:
@@ -136,11 +165,7 @@ def _patch_class():
             pass
 
         mode = _load_mode()
-        if mode == "auto":
-            route = "hybrid" if _score(user_text) >= 2 else "local"
-        else:
-            route = mode
-
+        route = ("hybrid" if _score(user_text) >= 2 else "local") if mode == "auto" else mode
         system_text = _system_prompt(self, session_id, user_text)
 
         if route == "local":
@@ -164,7 +189,6 @@ def _patch_class():
         return original(self, session_id, user_text)
 
     GojeBrain.answer = answer
-    GojeBrain._goje_v9_patched = True
-
+    GojeBrain._goje_v10_patched = True
 
 _patch_class()
