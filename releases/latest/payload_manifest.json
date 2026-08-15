@@ -1,5 +1,5 @@
 {
   "version": "8.0.0",
   "format": "base64-zip",
-  "parts": ["v8_01.txt","v8_02.txt","v8_03.txt","v8_04.txt","v8_05.txt","v8_06.txt","v8_07.txt","v8_08.txt","v8_09.txt"]
+  "parts": ["v8_01.txt","v8_02.txt","v8_03.txt","v8_04.txt","v8_05.txt","v8_06.txt","v8_07.txt","v8_08.txt","v8_09.txt","v8_10.txt","v8_11.txt","v8_12.txt","v8_13.txt","v8_14.txt","v8_15.txt","v8_16.txt","v8_17.txt","v8_18.txt","v8_19.txt"]
 }
