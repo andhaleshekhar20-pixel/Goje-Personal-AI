@@ -5,5 +5,5 @@
   "update_mode": "github",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "V8: local-first reasoning brain using Ollama + Qwen3 4B."
+  "notes": "V8: local-first reasoning brain using Ollama + Qwen3 4B, improved desktop brain integration and visible V8 version."
 }
