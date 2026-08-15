@@ -1,0 +1,1 @@
+The current V12 automatic-update payload failed validation because core/brain.py has a SyntaxError at line 1. Do not ship the current V12 payload until repaired.
