@@ -20,7 +20,7 @@ from core.permanent_updater import PermanentUpdater
 BASE=Path(__file__).resolve().parent
 os.chdir(BASE); load_dotenv()
 settings=json.loads((BASE/'config/settings.json').read_text(encoding='utf-8')) if (BASE/'config/settings.json').exists() else {}
-version=json.loads((BASE/'version.json').read_text(encoding='utf-8')).get('version','8.0.0') if (BASE/'version.json').exists() else '8.0.0'
+version=json.loads((BASE/'version.json').read_text(encoding='utf-8')).get('version','11.0.0') if (BASE/'version.json').exists() else '11.0.0'
 logger=AuditLog(settings.get('audit_log','data/audit.log'))
 permissions=PermissionManager(settings); commands=CommandRegistry(); events=EventBus()
 mt5=MT5Connector(permissions); memory=MemoryStore(); filesystem=FileSystemService(permissions,logger); web=WebSearchService(permissions,logger); voice=VoiceService(logger)
@@ -28,7 +28,7 @@ local=LocalReasoner(settings,logger); ctx=PluginContext(commands,events,permissi
 plugins=PluginManager(ctx); updater=PermanentUpdater(BASE,logger)
 brain=GojeBrain(memory,commands,mt5,filesystem,web,voice,events,local); session=str(uuid.uuid4())
 
-BG='#050a11'; PANEL='#0a1320'; CYAN='#2de2e6'; BLUE='#4aa3ff'; TEXT='#e8f7ff'; MUTED='#6f8ea7'; GREEN='#55f28b'
+BG='#050a11'; PANEL='#0a1320'; CYAN='#2de2e6'; BLUE='#4aa3ff'; TEXT='#e8f7ff'; MUTED='#6f8ea7'; GREEN='#55f28b'; RED='#ff3b52'
 
 class Goje(tk.Tk):
     def __init__(self):
@@ -37,8 +37,8 @@ class Goje(tk.Tk):
     def btn(self,p,text,cmd,w=12): return tk.Button(p,text=text,command=cmd,bg=PANEL,fg=TEXT,activebackground='#14334e',activeforeground=CYAN,relief='flat',bd=0,font=('Segoe UI',10,'bold'),cursor='hand2',width=w,padx=7,pady=7)
     def _build(self):
         top=tk.Frame(self,bg='#07111d',height=78); top.pack(fill='x'); top.pack_propagate(False)
-        tk.Label(top,text='GOJE',bg='#07111d',fg=TEXT,font=('Segoe UI',22,'bold')).pack(side='left',padx=(22,8),pady=16)
-        tk.Label(top,text=f'PERSONAL AI // V{version} // LOCAL-FIRST',bg='#07111d',fg=MUTED,font=('Consolas',9)).pack(side='left',pady=25)
+        tk.Label(top,text='GOJE',bg='#07111d',fg=RED,font=('Segoe UI',22,'bold')).pack(side='left',padx=(22,8),pady=16)
+        tk.Label(top,text=f'PERSONAL AI // V{version} // AUTO-UPDATE V11 TEST',bg='#07111d',fg=MUTED,font=('Consolas',9)).pack(side='left',pady=25)
         self.status=tk.StringVar(value='STARTING'); tk.Label(top,textvariable=self.status,bg='#07111d',fg=CYAN,font=('Consolas',9,'bold')).pack(side='right',padx=16)
         self.btn(top,'⟳ UPDATE',self.update,10).pack(side='right',padx=4); self.btn(top,'🧠 LOCAL BRAIN',self.install_brain,14).pack(side='right',padx=4)
         body=tk.Frame(self,bg=BG); body.pack(fill='both',expand=True)
