@@ -1,0 +1,1 @@
+Diagnostic marker: V12 brain.py had invalid Python syntax at line 1 during automatic updater validation. Replace core/brain.py with the corrected project version before publishing the next stable update.
