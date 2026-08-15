@@ -1,9 +1,9 @@
 {
   "product": "Goje",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "channel": "stable",
   "update_mode": "github",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "V8: local-first reasoning brain using Ollama + Qwen3 4B, improved desktop brain integration and visible V8 version."
+  "notes": "V9 Hybrid Brain: AUTO/LOCAL/OPENAI routing with the verified qwen3:4b-instruct local model."
 }
