@@ -1,8 +1,8 @@
 {
   "product": "Goje",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "channel": "stable",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "V9 Hybrid Brain: AUTO/LOCAL/OPENAI routing, qwen3:4b-instruct local brain, and Windows app support."
+  "notes": "V10 update test: local brain repair, qwen3:4b-instruct, stronger file tasks, and verified Windows updater snapshot fallback."
 }
