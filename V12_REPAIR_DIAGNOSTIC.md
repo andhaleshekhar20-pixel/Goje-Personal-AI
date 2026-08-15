@@ -1,0 +1,1 @@
+V12 updater test reported: SyntaxError in core/brain.py, line 1. The stable branch must be repaired before another automatic update test.
