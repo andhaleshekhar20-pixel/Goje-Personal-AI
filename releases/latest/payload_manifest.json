@@ -1,5 +1,5 @@
 {
   "version": "8.0.0",
   "format": "base64-zip",
-  "parts": ["part01.txt","part02.txt","part03.txt","part04.txt","part05.txt","part06.txt","part07.txt","part08.txt","part09.txt"]
+  "parts": ["v8_01.txt","v8_02.txt","v8_03.txt","v8_04.txt","v8_05.txt","v8_06.txt","v8_07.txt","v8_08.txt","v8_09.txt"]
 }
