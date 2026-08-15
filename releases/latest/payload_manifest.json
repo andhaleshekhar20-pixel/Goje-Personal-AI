@@ -1,0 +1,5 @@
+{
+  "version": "7.0.0",
+  "format": "base64-zip",
+  "parts": ["part01.txt","part02.txt","part03.txt","part04.txt","part05.txt","part06.txt","part07.txt","part08.txt"]
+}
