@@ -5,5 +5,5 @@
   "update_mode": "external_bootstrap",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "V12 update test: Goje brand changed from red to green."
+  "notes": "V12 stable test: fixed brain.py and local_reasoner.py syntax, connected Ollama qwen3:4b-instruct with thinking disabled, and retained the public updater flow. GOJE brand is green."
 }
