@@ -1,0 +1,9 @@
+{
+  "product": "Goje",
+  "version": "5.0.0",
+  "channel": "stable",
+  "min_supported_version": "5.0.0",
+  "update_mode": "github-source",
+  "preserve": ["data", "config", "plugins", "ai_inbox", "backups", "memory"],
+  "notes": "Goje V5 voice and natural conversation build"
+}
