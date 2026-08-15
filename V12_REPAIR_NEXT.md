@@ -1,0 +1,1 @@
+Repair in progress. Do not use V12 for automatic updating until core/brain.py passes Python syntax validation.
