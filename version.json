@@ -1,9 +1,9 @@
 {
   "product": "Goje",
-  "version": "5.1.0",
+  "version": "7.0.0",
   "channel": "stable",
-  "update_mode": "github-source",
+  "update_mode": "github",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "GitHub automatic update channel enabled"
+  "notes": "V7 permanent updater and futuristic Goje desktop"
 }
