@@ -1,8 +1,8 @@
 {
   "product": "Goje",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "channel": "stable",
   "repository": "andhaleshekhar20-pixel/Goje-Personal-AI",
   "branch": "main",
-  "notes": "V10 update test: local brain repair, qwen3:4b-instruct, stronger file tasks, and verified Windows updater snapshot fallback."
+  "notes": "V11 auto-update test: Goje brand name is red and the desktop shows an AUTO-UPDATE V11 TEST marker."
 }
