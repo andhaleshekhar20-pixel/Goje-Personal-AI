@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "market_data_read": true,
+    "position_read": true,
+    "trade_execute": false,
+    "trade_modify": false,
+    "trade_close": false,
+    "ea_build": false,
+    "filesystem_read": true,
+    "filesystem_open": true,
+    "filesystem_write": true,
+    "filesystem_delete": false,
+    "internet_search": true,
+    "browser_open": true
+  },
+  "plugin_poll_seconds": 2,
+  "audit_log": "data/audit.log",
+  "assistant": {
+    "name": "Goje",
+    "persona": "female",
+    "voice_enabled": true,
+    "confirmation_required_for_destructive_actions": true,
+    "auto_speak_answers": true,
+    "voice_name": "",
+    "voice_rate": 0,
+    "voice_volume": 100,
+    "push_to_talk": true,
+    "confirm_destructive_actions": true,
+    "style": "friendly, concise, proactive, collaborative"
+  },
+  "search": {
+    "provider": "duckduckgo_html",
+    "max_results": 8
+  },
+  "ui": {
+    "theme": "futuristic_hud",
+    "accent": "cyan",
+    "animations": true
+  },
+  "reasoning": {
+    "provider": "ollama",
+    "base_url": "http://127.0.0.1:11434",
+    "model": "goje-brain",
+    "base_model": "qwen3:4b",
+    "thinking": true,
+    "temperature": 0.2,
+    "local_first": true,
+    "openai_fallback": true
+  }
+}
