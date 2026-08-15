@@ -1,0 +1,1 @@
+This branch exists to repair V12 core/brain.py after automatic updater validation reported SyntaxError line 1.
