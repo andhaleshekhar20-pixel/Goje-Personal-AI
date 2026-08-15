@@ -1,0 +1,1 @@
+Automatic update validation failed on V12 because core/brain.py reports SyntaxError at line 1. This branch is reserved for fixing the brain module before merging the stable update.
